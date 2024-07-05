@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, TextInput, Platform } from "react-native";
 import { Link } from 'expo-router';
 import { Button } from "../components/Button";
 import { useState } from "react";
+import Ionicons from "@expo/vector-icons/Ionicons"
 
 export default function LoginScreen(){
     const [email, setEmail] = useState('')
@@ -10,12 +11,10 @@ export default function LoginScreen(){
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-            {/* <Ionicons
-          name={isOpen ? 'chevron-down' : 'chevron-forward-outline'}
-          size={18}
-          color={theme === 'light' ? Colors.light.icon : Colors.dark.icon}
-        /> */}
-                <Link style={styles.close} href="/">Close</Link>
+            
+                <Link style={styles.close} href="/">
+                    <Ionicons style={styles.closeIcon} name="close"/>                
+                </Link>
                 <Text style={styles.logo}>Train up</Text>
             </View>
 
@@ -29,16 +28,19 @@ export default function LoginScreen(){
                     onChangeText={setEmail}
                 />
                 <TextInput
+                    secureTextEntry={true}
                     style={styles.input}
                     placeholder="Password"
                     value={password}
                     onChangeText={setPassword}
                 />
-                <Text>Forgot your password?</Text>
+                <Text style={styles.text}>Forgot your password?</Text>
             </View>
 
             <View style={styles.bottom}>
-                <Link href="/register">Don't have an account? Register here!</Link>
+                <Link href="/register">
+                    <Text style={styles.text}>Don't have an account? Register here!</Text>
+                </Link>
                 <Button label="Sign In"/>
             </View>
         </View>
@@ -61,19 +63,19 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: '100%',
         flexDirection: 'row',
-        // borderColor: '#a89b27',
-        // borderWidth: 1,
         padding: 8,
-        position: 'relative',
+        position: "relative",
         
     },
     close: {
         position: 'absolute',
         left: 16
-
+    },
+    closeIcon: {
+        fontSize: 40,
+        color: '#c0c0c0'
     },
     logo: {
-        // backgroundColor: '#aa1d1d',
         fontSize: 20,
         fontFamily: Platform.select({
             android: 'RussoOne_400Regular'
@@ -102,7 +104,10 @@ const styles = StyleSheet.create({
         width: 360,
         height: 64,
         fontSize: 10,
-        paddingLeft: 8
+        paddingLeft: 8,
+        fontFamily: Platform.select({
+            android: 'Inter_400Regular'
+        })
     },
     bottom: {
         bottom: 0,
@@ -112,6 +117,11 @@ const styles = StyleSheet.create({
     },
     submit: {
         backgroundColor: 'red'
+    },
+    text: {
+        fontFamily: Platform.select({
+            android: 'Inter_400Regular'
+        })
     }
 
   });

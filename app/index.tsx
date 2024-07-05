@@ -7,6 +7,7 @@ export default function HomeScreen() {
     <View style={styles.container}>
       <Text style={{color: '#686868'}}>Hello Worldddd!</Text>
       <Link href="/login">login page</Link>
+      <Link href="/register">register page</Link>
       <StatusBar style="auto" />
     </View>
   );
