@@ -1,9 +1,9 @@
 import { View, Text, StyleSheet, TextInput, Platform, Pressable, TouchableOpacity } from "react-native";
-import { Button } from "../components/Button";
 import { Link } from 'expo-router';
 import Ionicons from "@expo/vector-icons/Ionicons"
 import { useEffect, useState } from "react";
 import DatePicker from "@react-native-community/datetimepicker"
+import { ButtonSubmit } from "../components/ButtonSubmit";
 
 export default function RegisterScreen() {
 
@@ -15,18 +15,6 @@ export default function RegisterScreen() {
     const [birthdate, setBirthdate] = useState(new Date());
     const [showPicker, setShowPicker] = useState(false);
 
-    const formatDate = (rawDate: Date) => {
-        let date = new Date(rawDate);
-
-        let year = date.getFullYear();
-        let month = (date.getMonth() + 1);
-        let day = date.getDate();
-
-        let monthStr = month < 10 ? `0${month}` : month
-        let dayStr = day < 10 ? `0${day}` : day
-
-        return `${year}-${monthStr}-${dayStr}`
-    }
 
     const toggleDatePicker = () => setShowPicker(!showPicker);
 
@@ -34,6 +22,21 @@ export default function RegisterScreen() {
         toggleDatePicker();
     }
 
+    const submitForm = () => {
+
+        if(password != confirmPwd){
+            console.log("Passwords must be equal")
+        } else{
+            let request = {
+                username,
+                email,
+                password,
+                birthdate
+            }
+
+            console.log(request)
+        }
+    }
 
     return (
         <View style={styles.container}>
@@ -96,7 +99,7 @@ export default function RegisterScreen() {
                         style={styles.input}
                         editable={false}
                         placeholder={"Birthdate"}
-                        value={formatDate(birthdate)}
+                        value={birthdate.toDateString()}
                     />
                 </Pressable>
 
@@ -117,7 +120,9 @@ export default function RegisterScreen() {
                     <Link href="/login">
                         <Text style={styles.text}>Already have an account? Sign In</Text>
                     </Link>
-                    <Button label="Sign In" />
+                    <Pressable onPress={() => submitForm()}>
+                        <ButtonSubmit label="Register" />
+                    </Pressable>
             </View>
         </View>
     );

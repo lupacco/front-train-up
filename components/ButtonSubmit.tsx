@@ -1,24 +1,15 @@
 import { Pressable, View, Text, StyleSheet, Platform } from "react-native";
 
 
-export function Button({label}: any){
-    // let [fontsLoaded] = 
+export function ButtonSubmit({label}: any){
     return (
-        <View style={styles.container}>
-            <Pressable style={styles.submit} onPress={() => alert("You pressed a button!")}>
+            <View style={styles.submit}>
                 <Text style={styles.buttonText}>{label}</Text>
-            </Pressable>
-        </View>
+            </View>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        // flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        // backgroundColor: 'blue'
-    },
       submit: {
         margin: 16,
         justifyContent: 'center', 

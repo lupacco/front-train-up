@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, TextInput, Platform } from "react-native";
 import { Link } from 'expo-router';
-import { Button } from "../components/Button";
+import { ButtonSubmit } from "../components/ButtonSubmit";
 import { useState } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons"
 
@@ -41,7 +41,7 @@ export default function LoginScreen(){
                 <Link href="/register">
                     <Text style={styles.text}>Don't have an account? Register here!</Text>
                 </Link>
-                <Button label="Sign In"/>
+                <ButtonSubmit label="Sign In"/>
             </View>
         </View>
     );
