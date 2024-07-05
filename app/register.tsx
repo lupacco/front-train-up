@@ -7,51 +7,33 @@ import DatePicker from "@react-native-community/datetimepicker"
 
 export default function RegisterScreen() {
 
-    const formatDate = (rawDate: any) => {
-        let date = new Date(rawDate);
-
-        let year = date.getFullYear();
-        let month = date.getMonth();
-        let day = date.getDate();
-
-        return `${year}-${month}-${day}`
-    }
-
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPwd, setConfirmPwd] = useState('');
 
-    const [date, setDate] = useState(new Date());
-    const [birthdate, setBirthdate] = useState(formatDate(date));
+    const [birthdate, setBirthdate] = useState(new Date());
     const [showPicker, setShowPicker] = useState(false);
 
-    const toggleDatePicker = () => setShowPicker(!showPicker);
-    const onChange = ({ type }: any, selectedDate: any) => {
-        if (type == "set") {
-            const currentDate = selectedDate;
-            setDate(currentDate);
+    const formatDate = (rawDate: Date) => {
+        let date = new Date(rawDate);
 
-            if (Platform.OS === "android") {
-                toggleDatePicker();
-                setBirthdate(formatDate(currentDate));
-            }
-            
-        } else {
-            toggleDatePicker();
-        }
+        let year = date.getFullYear();
+        let month = (date.getMonth() + 1);
+        let day = date.getDate();
+
+        let monthStr = month < 10 ? `0${month}` : month
+        let dayStr = day < 10 ? `0${day}` : day
+
+        return `${year}-${monthStr}-${dayStr}`
     }
+
+    const toggleDatePicker = () => setShowPicker(!showPicker);
+
     const confirmIOSDate = () => {
-        setBirthdate(date.toDateString());
         toggleDatePicker();
     }
 
-    
-
-    useEffect(() => {
-        console.log("birthdate: "+birthdate + " type: "+typeof(birthdate));
-        console.log("date: "+ date.toDateString()+ " type: "+typeof(date));
-    } , [birthdate])
 
     return (
         <View style={styles.container}>
@@ -98,9 +80,13 @@ export default function RegisterScreen() {
                 {showPicker && (
                     <DatePicker
                         mode="date"
-                        value={date}
+                        value={birthdate}
                         display="spinner"
-                        onChange={onChange}
+                        onChange={(event, selectedDate : any) => {
+                            const currentDate = selectedDate;
+                            setShowPicker(false)
+                            setBirthdate(currentDate);
+                        }}
 
                     />
                 )}
@@ -110,15 +96,14 @@ export default function RegisterScreen() {
                         style={styles.input}
                         editable={false}
                         placeholder={"Birthdate"}
-                        value={date.toDateString()}
-                        onChangeText={setBirthdate}
+                        value={formatDate(birthdate)}
                     />
                 </Pressable>
 
                 {showPicker && Platform.OS === "ios" && (
                     <>
                         <View>
-                        <TouchableOpacity >
+                            <TouchableOpacity >
                                 <Text>Cancel</Text>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={confirmIOSDate}>
@@ -127,12 +112,13 @@ export default function RegisterScreen() {
                         </View>
                     </>
                         )}
-                    </View><View style={styles.bottom}>
-                            <Link href="/login">
-                                <Text style={styles.text}>Already have an account? Sign In</Text>
-                            </Link>
-                            <Button label="Sign In" />
-                        </View>
+            </View>
+            <View style={styles.bottom}>
+                    <Link href="/login">
+                        <Text style={styles.text}>Already have an account? Sign In</Text>
+                    </Link>
+                    <Button label="Sign In" />
+            </View>
         </View>
     );
 }
@@ -206,9 +192,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
     },
-    submit: {
-        backgroundColor: 'red'
-    },
+
     text: {
         fontFamily: Platform.select({
             android: 'Inter_400Regular'

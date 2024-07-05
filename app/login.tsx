@@ -115,9 +115,6 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
     },
-    submit: {
-        backgroundColor: 'red'
-    },
     text: {
         fontFamily: Platform.select({
             android: 'Inter_400Regular'
