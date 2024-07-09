@@ -1,7 +1,7 @@
-import { Pressable, View, Text, StyleSheet, Platform } from "react-native";
+import { View, Text, StyleSheet, Platform } from "react-native";
 
 
-export function ButtonSubmit({label}: any){
+export function ButtonSubmit({label}: {label: string}){
     return (
             <View style={styles.submit}>
                 <Text style={styles.buttonText}>{label}</Text>

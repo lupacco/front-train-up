@@ -1,12 +1,54 @@
-import { View, Text, StyleSheet, TextInput, Platform } from "react-native";
+import { View, Text, StyleSheet, TextInput, Platform, Pressable } from "react-native";
 import { Link } from 'expo-router';
 import { ButtonSubmit } from "../components/ButtonSubmit";
 import { useState } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons"
+import { router } from "expo-router";
 
 export default function LoginScreen(){
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+
+    type User = {
+        id: string,
+        username: string,
+        email: string,
+        name: string,
+        birthdate: Date,
+        password: string
+    }
+
+    const users: User[] = [
+        {
+            id: "aa2bc0c3-45cd-4a10-ad10-109c0a0d03da",
+            username: "lucas",
+            email: "lucas@email.com",
+            name: "lucas pagotto",
+            password: "senha",
+            birthdate: new Date("1999-04-20")
+        },
+        {
+            id: "bb2bc0c3-45cd-4a10-ad10-109c0a0d03db",
+            username: "henry",
+            email: "henry@email.com",
+            name: "Pedro Henrique",
+            password: "senha",
+            birthdate: new Date("2000-06-10")
+        }
+
+    ]
+
+    const submitForm = () => {
+
+        let lucas = users[0]
+
+        if(email != lucas.email || password != lucas.password){
+            console.log("Email or password is wrong")
+        } else{
+            console.log(lucas)
+            router.push("/home")
+        }
+    }
 
     return (
         <View style={styles.container}>
@@ -41,7 +83,10 @@ export default function LoginScreen(){
                 <Link href="/register">
                     <Text style={styles.text}>Don't have an account? Register here!</Text>
                 </Link>
-                <ButtonSubmit label="Sign In"/>
+
+                <Pressable onPress={submitForm}>
+                    <ButtonSubmit label="Sign In"/>
+                </Pressable>
             </View>
         </View>
     );
