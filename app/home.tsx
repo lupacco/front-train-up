@@ -1,4 +1,4 @@
-import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 import { Link } from 'expo-router';
 import Ionicons from "@expo/vector-icons/Ionicons"
 import WorkoutsContainer from '../components/WorkoutsContainer';
@@ -57,7 +57,6 @@ const styles = StyleSheet.create({
   label: {
     width: '80%',
     marginTop: 16,
-    // backgroundColor:'blue',
     color: '#c0c0c0',
     fontSize: 16,
     fontFamily: Platform.select({

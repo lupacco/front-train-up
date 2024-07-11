@@ -47,7 +47,7 @@ export default function WorkoutsContainer(){
           </View>
         </ScrollView>
         <View style={styles.addContainer} >
-          <Link href="/" style={styles.add}>Add +</Link>
+          <Link href="/create-workout" style={styles.add}>Add +</Link>
         </View>
       </View>
     );
@@ -58,21 +58,17 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: '85%',
         height: '35%',
-        // borderWidth: 1,
         paddingVertical: 24
       },
       workoutsContainer: {
-        display: 'flex',
         flexDirection: 'column',
         flexWrap: 'wrap',
         justifyContent: 'space-between',
       },
       addContainer: {
         width: '80%',
-        // backgroundColor:'blue',
       },
       add: {
-        // backgroundColor:'yellow',
         color: '#a2a2a2',
         textAlign: 'right',
         alignSelf: 'flex-end'
