@@ -1,52 +1,56 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Float } from "react-native/Libraries/Types/CodegenTypes";
 
 export default function ExercisesContainer() {
     const [selectedExercise, setSelectedExercise] = useState<number|null>(null);
 
 
     type Exercise = {
-        name: string
+        name: string,
+        series: number,
+        reps: number[]
+        weight: Float[]
     }
 
     const exercises: Exercise[] = [
         {
-            name: "Exercise"
+            name: "Exerciseee",
+            series: 4,
+            reps: [12, 10, 10, 8],
+            weight: [10, 12, 15, 17.5]
         },
         {
-            name: "Exercise"
+            name: "Exercise",
+            series: 4,
+            reps: [12, 10, 10, 8],
+            weight: [10, 12, 15, 17.5]
         },
         {
-            name: "Exercise"
+            name: "Exercise",
+            series: 4,
+            reps: [12, 10, 10, 8],
+            weight: [10, 12, 15, 17.5]
         },
         {
-            name: "Exercise"
+            name: "Exercise",
+            series: 4,
+            reps: [12, 10, 10, 8],
+            weight: [10, 12, 15, 17.5]
         },
         {
-            name: "Exercise"
+            name: "Exercise",
+            series: 4,
+            reps: [12, 10, 10, 8],
+            weight: [10, 12, 15, 17.5]
         },
-        // {
-        //     name: "Exercise"
-        // },
-        // {
-        //     name: "Exercise"
-        // },
-        // {
-        //     name: "Exercise"
-        // },
-        // {
-        //     name: "Exercise"
-        // },
-        // {
-        //     name: "Exercise"
-        // },
-        // {
-        //     name: "Exercise"
-        // },
-        // {
-        //     name: "Exercise"
-        // },
+        {
+            name: "Exercise",
+            series: 4,
+            reps: [12, 10, 10, 8],
+            weight: [10, 12, 15, 17.5]
+        },
     ]
 
     return (
@@ -56,7 +60,7 @@ export default function ExercisesContainer() {
             </Pressable>
             <ScrollView style={styles.exercises}>
 
-                {exercises.map((e, index) => (
+                {exercises.map((exercise, index) => (
                     <Pressable onPress={e => {
                         if(index === selectedExercise){
                             console.log(`Close exercise ${index}`)
@@ -66,8 +70,14 @@ export default function ExercisesContainer() {
                             setSelectedExercise(index)
                         }
                     }} style={[styles.exercise, selectedExercise === index ? {height: 128} : {}, exercises.length === index + 1 ? { borderBottomWidth: 0 } : {}]}>
-                        <Text>Exercise {index}</Text>
-                        {}
+                        <Text>{exercise.name} {index}</Text>
+                        {index === selectedExercise && (
+                            <View>
+                                <Text>Series: {exercise.series}</Text>
+                                <Text>Reps: {exercise.reps}</Text>
+                                <Text>Weight: {exercise.weight}</Text>
+                            </View>
+                        )}
                     </Pressable>
                 ))}
 
