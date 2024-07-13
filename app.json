@@ -29,7 +29,8 @@
     "extra": {
       "eas": {
         "projectId": "aea32a14-9d12-4f02-a1f1-5a36aef291f3"
-      }
+      },
+      "apiUrl": "http://192.168.0.88:8085/api/v1"
     },
     "plugins": [
       "expo-router",

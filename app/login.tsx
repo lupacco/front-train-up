@@ -1,53 +1,32 @@
 import { View, Text, StyleSheet, TextInput, Platform, Pressable } from "react-native";
 import { Link } from 'expo-router';
 import { ButtonSubmit } from "../components/ButtonSubmit";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons"
 import { router } from "expo-router";
+import { fetchInstance } from "../utils/fetchInstances";
+import { users } from "../@types/mock";
 
 export default function LoginScreen(){
-    const [email, setEmail] = useState('')
+    const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [auth, setAuth] = useState<{token : string|undefined}>();
 
-    type User = {
-        id: string,
-        username: string,
-        email: string,
-        name: string,
-        birthdate: Date,
-        password: string
-    }
-
-    const users: User[] = [
-        {
-            id: "aa2bc0c3-45cd-4a10-ad10-109c0a0d03da",
-            username: "lucas",
-            email: "lucas@email.com",
-            name: "lucas pagotto",
-            password: "senha",
-            birthdate: new Date("1999-04-20")
-        },
-        {
-            id: "bb2bc0c3-45cd-4a10-ad10-109c0a0d03db",
-            username: "henry",
-            email: "henry@email.com",
-            name: "Pedro Henrique",
-            password: "senha",
-            birthdate: new Date("2000-06-10")
-        }
-
-    ]
-
-    const submitForm = () => {
-
-        let lucas = users[0]
-
-        if(email != lucas.email || password != lucas.password){
-            console.log("Email or password is wrong")
-        } else{
-            console.log(lucas)
-            router.push("/home")
-        }
+    
+    const submitForm = async () => {
+        
+        const response = await fetchInstance("/authenticate", {
+            method: 'POST',
+            body: JSON.stringify({
+                username: username,
+                password: password
+            })
+        })
+        setAuth(response)
+        console.log('res')
+        // console.log(response)
+        console.log(auth?.token)
+        
     }
 
     return (
@@ -65,9 +44,9 @@ export default function LoginScreen(){
                 <Text style={styles.h1}>Sign in with an existing account</Text>
                 <TextInput
                     style={styles.input}
-                    placeholder="E-mail"
-                    value={email}
-                    onChangeText={setEmail}
+                    placeholder="Username"
+                    value={username}
+                    onChangeText={setUsername}
                 />
                 <TextInput
                     secureTextEntry={true}
@@ -76,7 +55,10 @@ export default function LoginScreen(){
                     value={password}
                     onChangeText={setPassword}
                 />
-                <Text style={styles.text}>Forgot your password?</Text>
+                <Pressable>
+                    <Text style={styles.text}>Forgot your password?</Text>
+                </Pressable>
+                <Text>{auth?.token}</Text>
             </View>
 
             <View style={styles.bottom}>
