@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { Link } from 'expo-router';
 
-export default function HomeScreen() {
+export default function OptionsScreen() {
   return (
     <View style={styles.container}>
       <Text style={{color: '#686868'}}>Hello Worldddd!</Text>

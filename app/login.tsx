@@ -1,16 +1,20 @@
 import { View, Text, StyleSheet, TextInput, Platform, Pressable } from "react-native";
 import { Link } from 'expo-router';
 import { ButtonSubmit } from "../components/ButtonSubmit";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons"
 import { router } from "expo-router";
 import { fetchInstance } from "../utils/fetchInstances";
 import { users } from "../@types/mock";
+import { UserContext } from "../contexts/userContext";
 
 export default function LoginScreen(){
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [auth, setAuth] = useState<{token : string|undefined}>();
+
+    const user = useContext(UserContext)
+    
 
     
     const submitForm = async () => {

@@ -5,8 +5,8 @@ export const users: User[] = [
         id: "aa2bc0c3-45cd-4a10-ad10-109c0a0d03da",
         username: "lucas",
         email: "lucas@email.com",
-        name: "lucas pagotto",
-        password: "senha",
+        name: "Lucas pagotto",
+        password: "senha", //todo remove
         birthdate: new Date("1999-04-20")
     },
     {

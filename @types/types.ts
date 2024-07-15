@@ -6,7 +6,8 @@ export type User = {
     email: string,
     name: string,
     birthdate: Date,
-    password: string
+    password: string, //todo remove,
+    token?: string
 }
 
 export type Exercise = {

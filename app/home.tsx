@@ -2,13 +2,16 @@ import { Platform, StyleSheet, Text, View } from 'react-native';
 import { Link } from 'expo-router';
 import Ionicons from "@expo/vector-icons/Ionicons"
 import WorkoutsContainer from '../components/WorkoutsContainer';
+import { useContext } from 'react';
+import { UserContext } from '../contexts/userContext';
 
-export default function Home() {
+export default function HomeScreen() {
+  const user = useContext(UserContext)
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.h1}>Welcome, Lucas!</Text>
+        <Text style={styles.h1}>Welcome, {"Lucas"}!</Text>
         <Link href="/">
           <Ionicons style={styles.profileIcon} name="person-circle"/>                
         </Link>
