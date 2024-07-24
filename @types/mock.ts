@@ -1,4 +1,4 @@
-import { Exercise, User } from "./types";
+import { Exercise, User, Workout } from "./types";
 
 export const users: User[] = [
     {
@@ -19,6 +19,36 @@ export const users: User[] = [
     }
 
 ]
+
+export const workouts: Workout[] = [
+    {
+        name: "biceps"
+    },
+    {
+        name: "peito"
+    },
+    {
+        name: "triceps"
+    },
+    {
+        name: "perna"
+    },
+    {
+        name: "ombro"
+    },
+    {
+        name: "costas"
+    },
+    {
+        name: "peito 2"
+    },
+    {
+        name: "biceps 2"
+    },
+    {
+        name: "biceps 3"
+    },
+    ]
 
 export const exercises: Exercise[] = [
     {

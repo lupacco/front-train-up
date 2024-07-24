@@ -73,13 +73,15 @@ const styles = StyleSheet.create({
         display: 'flex',
         height: '100%',
         alignItems: 'center',
+        // justifyContent: 'space-between',
         position: 'relative',
     },
     header: {
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
-        marginVertical: 4,
+        marginTop: 24,
+        marginBottom: 16,
         paddingVertical: 8,
         borderBottomColor: "#c0c0c0",
         borderBottomWidth: 1

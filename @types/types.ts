@@ -24,6 +24,10 @@ export interface AuthenticationContextType {
     setAuth: (auth: Authentication) => void
 }
 
+export type Workout = {
+    name: string
+}
+
 export type Exercise = {
     name: string,
     series: number,

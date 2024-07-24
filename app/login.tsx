@@ -6,8 +6,7 @@ import Ionicons from "@expo/vector-icons/Ionicons"
 import { router } from "expo-router";
 import { fetchInstance } from "../utils/fetchInstances";
 import { AuthContext } from "../contexts/authContext";
-import { AuthenticationContextType, User, UserContextType } from "../@types/types";
-import { UserContext } from "../contexts/userContext";
+import { AuthenticationContextType } from "../@types/types";
 
 export default function LoginScreen(){
     const [username, setUsername] = useState('')
@@ -15,7 +14,6 @@ export default function LoginScreen(){
     const [error, setError] = useState(false)
 
     const {setAuth} = useContext(AuthContext) as AuthenticationContextType
-    const {setUser} = useContext(UserContext) as UserContextType
         
     const submitForm = async () => {
         
@@ -34,15 +32,8 @@ export default function LoginScreen(){
         } 
         setError(false)
         setAuth(response)
-
-        const userToRequest ={
-            username: username
-        } as User 
-
-        setUser(userToRequest)
-        
-        router.push('/home')
-        
+       
+        router.push('/home')        
     }
 
     return (

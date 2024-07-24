@@ -13,21 +13,22 @@ export default function HomeScreen() {
   const {auth} = useContext(AuthContext) as AuthenticationContextType
 
   const fetchUser = async () => {
-    const response = await fetchInstanceWithToken(`/customer/${user?.username}`, auth?.token, {
+    const response = await fetchInstanceWithToken("/customer/token", auth?.token, {
       method: 'GET',
     });
 
     if('error' in response){
-      console.log('error')
+      console.log(response)
       return;
     }
 
     setUser(response)
   }
 
+  
+
   useEffect(() => {
     fetchUser()
-    console.log(user)
     
   }, [])
 
