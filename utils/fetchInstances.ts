@@ -17,8 +17,9 @@ export async function fetchInstance(
         })
     
         if (!response.ok){
+            const error = await response.json()
             return {
-                error: 'remote not ok'
+                error
             }
         }
         
@@ -48,6 +49,8 @@ export async function fetchInstanceWithToken(
         })
     
         if (!response.ok){
+            console.log('error response:')
+            console.log(response)
             return {
                 error: 'remote not ok'
             }

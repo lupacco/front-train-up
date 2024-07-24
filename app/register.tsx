@@ -43,6 +43,7 @@ export default function RegisterScreen() {
 
             if('error' in response){
                 console.log("error")
+                console.log(response)
                 return;
             } 
             router.push("/login")
