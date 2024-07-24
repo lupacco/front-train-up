@@ -1,12 +1,13 @@
 import { View, Text, StyleSheet, TextInput, Platform, Pressable, TouchableOpacity } from "react-native";
-import { Link } from 'expo-router';
+import { Link, router } from 'expo-router';
 import Ionicons from "@expo/vector-icons/Ionicons"
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import DatePicker from "@react-native-community/datetimepicker"
 import { ButtonSubmit } from "../components/ButtonSubmit";
+import { fetchInstance } from "../utils/fetchInstances";
 
 export default function RegisterScreen() {
-
+    const [name, setName] = useState('');
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -22,19 +23,29 @@ export default function RegisterScreen() {
         toggleDatePicker();
     }
 
-    const submitForm = () => {
+    const submitForm = async () => {
 
-        if(password != confirmPwd){
+        if(password !== confirmPwd){
             console.log("Passwords must be equal")
         } else{
-            let request = {
+            const request = {
+                name,
                 username,
                 email,
                 password,
                 birthdate
             }
 
-            console.log(request)
+            const response = await fetchInstance("/register", {
+                method: 'POST',
+                body: JSON.stringify(request)
+            })
+
+            if('error' in response){
+                console.log("error")
+                return;
+            } 
+            router.push("/login")
         }
     }
 
@@ -51,6 +62,12 @@ export default function RegisterScreen() {
 
             <View style={styles.form}>
                 <Text style={styles.h1}>Register here</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Name"
+                    value={name}
+                    onChangeText={setName}
+                />
                 <TextInput
                     style={styles.input}
                     placeholder="Username"
@@ -135,7 +152,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'space-between',
-        position: 'relative'
     },
     header: {
         margin: 48,
@@ -165,7 +181,7 @@ const styles = StyleSheet.create({
     h1: {
         fontSize: 24,
         width: 300,
-        margin: 48,
+        marginBottom: 48,
         textAlign: 'center',
         fontFamily: Platform.select({
             android: 'RussoOne_400Regular'
@@ -175,7 +191,6 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        marginBottom: 128
     },
     input: {
         margin: 8,
