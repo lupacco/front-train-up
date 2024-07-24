@@ -1,12 +1,15 @@
-// import { router, Slot } from "expo-router";
-// import { UserContextProvider } from "../contexts/userContext";
-// import { useEffect } from "react";
+import { Slot } from "expo-router";
+import { UserContextProvider } from "../contexts/userContext";
+import { AuthContextProvider } from "../contexts/authContext";
 
-// export default function LayoutRoot(){
-    
-//     return (
-//         <UserContextProvider>
-//             <Slot/>
-//         </UserContextProvider>
-//     );
-// }
+const RootLayout = () => {
+    return (
+        <AuthContextProvider>
+            <UserContextProvider>
+                <Slot/>
+            </UserContextProvider>
+        </AuthContextProvider>
+    );
+}
+
+export default RootLayout;

@@ -1,22 +1,22 @@
 import { View, Text, StyleSheet, TextInput, Platform, Pressable } from "react-native";
 import { Link } from 'expo-router';
 import { ButtonSubmit } from "../components/ButtonSubmit";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons"
 import { router } from "expo-router";
 import { fetchInstance } from "../utils/fetchInstances";
-import { users } from "../@types/mock";
+import { AuthContext } from "../contexts/authContext";
+import { AuthenticationContextType, User, UserContextType } from "../@types/types";
 import { UserContext } from "../contexts/userContext";
 
 export default function LoginScreen(){
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const [auth, setAuth] = useState<{token : string|undefined}>();
+    const [error, setError] = useState(false)
 
-    const user = useContext(UserContext)
-    
-
-    
+    const {setAuth} = useContext(AuthContext) as AuthenticationContextType
+    const {setUser} = useContext(UserContext) as UserContextType
+        
     const submitForm = async () => {
         
         const response = await fetchInstance("/authenticate", {
@@ -26,10 +26,22 @@ export default function LoginScreen(){
                 password: password
             })
         })
+
+        if('error' in response){
+            console.log("error")
+            setError(true)
+            return;
+        } 
+        setError(false)
         setAuth(response)
-        console.log('res')
-        // console.log(response)
-        console.log(auth?.token)
+
+        const userToRequest ={
+            username: username
+        } as User 
+
+        setUser(userToRequest)
+        
+        router.push('/home')
         
     }
 
@@ -62,7 +74,7 @@ export default function LoginScreen(){
                 <Pressable>
                     <Text style={styles.text}>Forgot your password?</Text>
                 </Pressable>
-                <Text>{auth?.token}</Text>
+                <Text>{error === true && 'Authentication error'}</Text>
             </View>
 
             <View style={styles.bottom}>
@@ -88,7 +100,7 @@ const styles = StyleSheet.create({
       position: 'relative'
     },
     header: {
-        margin: 24,
+        margin: 48,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',

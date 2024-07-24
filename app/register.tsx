@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
         position: 'relative'
     },
     header: {
-        margin: 24,
+        margin: 48,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',

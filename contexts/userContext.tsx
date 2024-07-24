@@ -1,7 +1,9 @@
 import { createContext, ReactNode, useState } from "react";
-import { User } from "../@types/types";
+import { User, UserContextType } from "../@types/types";
 
-export const UserContext = createContext<User|undefined>(undefined)
+
+
+export const UserContext = createContext<UserContextType|undefined>(undefined)
 
 export const UserContextProvider = ({children} : {children : ReactNode}) => {
     const [user, setUser] = useState<User|null>(null)

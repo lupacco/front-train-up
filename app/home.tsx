@@ -2,16 +2,39 @@ import { Platform, StyleSheet, Text, View } from 'react-native';
 import { Link } from 'expo-router';
 import Ionicons from "@expo/vector-icons/Ionicons"
 import WorkoutsContainer from '../components/WorkoutsContainer';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { UserContext } from '../contexts/userContext';
+import { AuthenticationContextType, UserContextType } from '../@types/types';
+import { AuthContext } from '../contexts/authContext';
+import { fetchInstanceWithToken } from '../utils/fetchInstances';
 
 export default function HomeScreen() {
-  const user = useContext(UserContext)
+  const {user, setUser} = useContext(UserContext) as UserContextType
+  const {auth} = useContext(AuthContext) as AuthenticationContextType
+
+  const fetchUser = async () => {
+    const response = await fetchInstanceWithToken(`/customer/${user?.username}`, auth?.token, {
+      method: 'GET',
+    });
+
+    if('error' in response){
+      console.log('error')
+      return;
+    }
+
+    setUser(response)
+  }
+
+  useEffect(() => {
+    fetchUser()
+    console.log(user)
+    
+  }, [])
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.h1}>Welcome, {"Lucas"}!</Text>
+        <Text style={styles.h1}>Welcome, {user?.name}!</Text>
         <Link href="/">
           <Ionicons style={styles.profileIcon} name="person-circle"/>                
         </Link>
@@ -41,7 +64,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     flexDirection: 'row',
-    marginVertical: 4,
+    marginTop: 24,
+    marginBottom: 8,
     paddingHorizontal: 12,
     paddingVertical: 8,
     borderBottomColor: "#c0c0c0",
